@@ -1,3 +1,4 @@
+variable "region"  { default = "us-east-1" }
 variable "name" {
   default = "public"
 }
@@ -13,7 +14,13 @@ variable "map_public_ip_on_launch" {
   default = true
 }
 
+provider "aws" {
+  alias  = "local"
+  region = "${var.region}"
+}
+
 resource "aws_subnet" "public" {
+  provider = "aws.local"
   vpc_id                  = "${var.vpc_id}"
   cidr_block              = "${element(split(",", var.cidrs), count.index)}"
   availability_zone       = "${element(split(",", var.azs), count.index)}"
@@ -30,6 +37,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_route_table" "public" {
+  provider = "aws.local"
   vpc_id = "${var.vpc_id}"
 
   route {
@@ -43,6 +51,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
+  provider = "aws.local"
   count          = "${length(split(",", var.cidrs))}"
   subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = "${aws_route_table.public.id}"
