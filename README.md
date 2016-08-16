@@ -12,8 +12,8 @@ Module Input Variables
 - `name` - Name (optional)
 - `vpc_id` - VPC id
 - `igw_id` - Internet gateway id
-- `cidrs` - Comma-separated list of VPC CIDR blocks
-- `azs` - Comma-separated list of availability zones
+- `cidrs` - List of VPC CIDR blocks
+- `azs` - List of availability zones
 - `map_public_ip_on_launch` - Should be true or false (optional, default is true)
 
 Usage
@@ -24,8 +24,8 @@ module "public_subnet" {
   source = "github.com/terraform-community-modules/tf_aws_public_subnet"
 
   name   = "production-public"
-  cidrs  = "10.2.1.0/24,10.2.2.0/24,10.2.3.0/24"
-  azs    = "eu-west-1a,eu-west-1b,eu-west-1c"
+  cidrs  = ["10.2.1.0/24", "10.2.2.0/24", "10.2.3.0/24"]
+  azs    = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
   vpc_id = "vpc-12345678"
   igw_id = "igw-12345678"
 }
