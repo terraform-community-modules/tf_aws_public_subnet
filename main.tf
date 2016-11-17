@@ -56,3 +56,9 @@ output "subnet_ids" {
     "${aws_subnet.public.*.id}"
   ]
 }
+
+output "public_route_table_ids" {
+  value = [
+    "${aws_route_table.public.*.id}"
+  ]
+}

@@ -34,7 +34,8 @@ module "public_subnet" {
 Outputs
 =======
 
-- `subnet_ids` - Comma-separated list of subnet ids
+- `subnet_ids` - Lst of subnet ids
+- `public_route_table_ids` - List of route table ids
 
 Authors
 =======
