@@ -32,7 +32,7 @@ resource "aws_subnet" "public" {
     create_before_destroy = true
   }
 
-  tags = "${merge(var.tags, map("Name", format("%s-rt-public", var.name)))}"
+  tags = "${merge(var.tags, map("Name", format("%s-subnet-public-%s", var.name, element(var.azs, count.index))))}"
 }
 
 # Routes
