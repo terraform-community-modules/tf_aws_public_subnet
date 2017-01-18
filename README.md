@@ -15,6 +15,7 @@ Module Input Variables
 - `cidrs` - List of VPC CIDR blocks
 - `azs` - List of availability zones
 - `map_public_ip_on_launch` - Should be true or false (optional, default is true)
+- `tags` - dictionary of tags that will be added to resources created by the module
 
 Usage
 -----
@@ -28,6 +29,11 @@ module "public_subnet" {
   azs    = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
   vpc_id = "vpc-12345678"
   igw_id = "igw-12345678"
+
+  tags {
+      "Terraform" = "true"
+      "Environment" = "${var.environment}"
+  }
 }
 ```
 
