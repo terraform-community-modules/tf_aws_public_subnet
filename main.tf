@@ -31,8 +31,7 @@ resource "aws_subnet" "public" {
   lifecycle {
     create_before_destroy = true
   }
-
-  tags = "${merge(var.tags, map("Name", format("%s-subnet-public-%s", var.name, element(var.azs, count.index))))}"
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 # Routes
@@ -40,7 +39,7 @@ resource "aws_route_table" "public" {
   vpc_id = "${var.vpc_id}"
   count  = "${length(var.cidrs)}"
 
-  tags = "${merge(var.tags, map("Name", format("%s-rt-public-%s", var.name, element(var.azs, count.index))))}"
+  tags = "${merge(var.tags, map("Name", format("%s.%s", var.name, element(var.azs, count.index))))}"
 }
 
 resource "aws_route_table_association" "public" {
